@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.6.33829.357
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OnlineScoreCard", "OnlineScoreCard\OnlineScoreCard.csproj", "{2435BD02-1A7F-4315-A7EE-7012F256019C}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{2435BD02-1A7F-4315-A7EE-7012F256019C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2435BD02-1A7F-4315-A7EE-7012F256019C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2435BD02-1A7F-4315-A7EE-7012F256019C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2435BD02-1A7F-4315-A7EE-7012F256019C}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {A63B6A7D-A5AB-4EA3-8A8E-23212BAE7684}
+	EndGlobalSection
+EndGlobal
