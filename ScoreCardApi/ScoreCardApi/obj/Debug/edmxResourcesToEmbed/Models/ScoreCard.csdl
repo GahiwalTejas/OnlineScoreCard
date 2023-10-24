@@ -1,0 +1,143 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="ScoreCardModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="PlayerRole">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="RollType" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <NavigationProperty Name="Players" Relationship="Self.FK__Players__RoleId__32E0915F" FromRole="PlayerRoles" ToRole="Players" />
+  </EntityType>
+  <EntityType Name="Player">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="FirstName" Type="String" MaxLength="150" FixedLength="false" Unicode="false" />
+    <Property Name="LastName" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
+    <Property Name="RoleId" Type="Int32" Nullable="false" />
+    <Property Name="TeamId" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="PlayerRole" Relationship="Self.FK__Players__RoleId__32E0915F" FromRole="Players" ToRole="PlayerRoles" />
+    <NavigationProperty Name="Team" Relationship="Self.FK__Players__TeamId__37A5467C" FromRole="Players" ToRole="Teams" />
+    <NavigationProperty Name="PlayersScores" Relationship="Self.FK__PlayersSc__Playe__3C69FB99" FromRole="Players" ToRole="PlayersScore" />
+  </EntityType>
+  <EntityType Name="PlayersScore">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Score" Type="Int32" Nullable="false" />
+    <Property Name="PlayersId" Type="Int32" />
+    <NavigationProperty Name="Player" Relationship="Self.FK__PlayersSc__Playe__3C69FB99" FromRole="PlayersScore" ToRole="Players" />
+  </EntityType>
+  <EntityType Name="Subscriber">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="email" Type="String" MaxLength="150" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="password" Type="String" MaxLength="150" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="FirstName" Type="String" MaxLength="150" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="LastName" Type="String" MaxLength="150" FixedLength="false" Unicode="false" />
+  </EntityType>
+  <EntityType Name="Team">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="TeamName" Type="String" MaxLength="150" FixedLength="false" Unicode="false" Nullable="false" />
+    <NavigationProperty Name="Players" Relationship="Self.FK__Players__TeamId__37A5467C" FromRole="Teams" ToRole="Players" />
+    <NavigationProperty Name="TeamsDatas" Relationship="Self.FK__TeamsData__TeamI__3A81B327" FromRole="Teams" ToRole="TeamsData" />
+  </EntityType>
+  <EntityType Name="TeamsData">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="MatchPlayed" Type="Int32" Nullable="false" />
+    <Property Name="Win" Type="Int32" Nullable="false" />
+    <Property Name="Loss" Type="Int32" Nullable="false" />
+    <Property Name="TeamId" Type="Int32" />
+    <NavigationProperty Name="Team" Relationship="Self.FK__TeamsData__TeamI__3A81B327" FromRole="TeamsData" ToRole="Teams" />
+  </EntityType>
+  <Association Name="FK__Players__RoleId__32E0915F">
+    <End Role="PlayerRoles" Type="Self.PlayerRole" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="Players" Type="Self.Player" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="PlayerRoles">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Players">
+        <PropertyRef Name="RoleId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Players__TeamId__37A5467C">
+    <End Role="Teams" Type="Self.Team" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="Players" Type="Self.Player" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Teams">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Players">
+        <PropertyRef Name="TeamId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__PlayersSc__Playe__3C69FB99">
+    <End Role="Players" Type="Self.Player" Multiplicity="0..1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="PlayersScore" Type="Self.PlayersScore" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Players">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="PlayersScore">
+        <PropertyRef Name="PlayersId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__TeamsData__TeamI__3A81B327">
+    <End Role="Teams" Type="Self.Team" Multiplicity="0..1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="TeamsData" Type="Self.TeamsData" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Teams">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="TeamsData">
+        <PropertyRef Name="TeamId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="ScoreCardEntities" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="PlayerRoles" EntityType="Self.PlayerRole" />
+    <EntitySet Name="Players" EntityType="Self.Player" />
+    <EntitySet Name="PlayersScores" EntityType="Self.PlayersScore" />
+    <EntitySet Name="Subscribers" EntityType="Self.Subscriber" />
+    <EntitySet Name="Teams" EntityType="Self.Team" />
+    <EntitySet Name="TeamsDatas" EntityType="Self.TeamsData" />
+    <AssociationSet Name="FK__Players__RoleId__32E0915F" Association="Self.FK__Players__RoleId__32E0915F">
+      <End Role="PlayerRoles" EntitySet="PlayerRoles" />
+      <End Role="Players" EntitySet="Players" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Players__TeamId__37A5467C" Association="Self.FK__Players__TeamId__37A5467C">
+      <End Role="Teams" EntitySet="Teams" />
+      <End Role="Players" EntitySet="Players" />
+    </AssociationSet>
+    <AssociationSet Name="FK__PlayersSc__Playe__3C69FB99" Association="Self.FK__PlayersSc__Playe__3C69FB99">
+      <End Role="Players" EntitySet="Players" />
+      <End Role="PlayersScore" EntitySet="PlayersScores" />
+    </AssociationSet>
+    <AssociationSet Name="FK__TeamsData__TeamI__3A81B327" Association="Self.FK__TeamsData__TeamI__3A81B327">
+      <End Role="Teams" EntitySet="Teams" />
+      <End Role="TeamsData" EntitySet="TeamsDatas" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>

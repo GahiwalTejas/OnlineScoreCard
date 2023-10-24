@@ -1,0 +1,63 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="ScoreCardModelStoreContainer" CdmEntityContainer="ScoreCardEntities">
+    <EntitySetMapping Name="PlayerRoles">
+      <EntityTypeMapping TypeName="ScoreCardModel.PlayerRole">
+        <MappingFragment StoreEntitySet="PlayerRoles">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="RollType" ColumnName="RollType" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Players">
+      <EntityTypeMapping TypeName="ScoreCardModel.Player">
+        <MappingFragment StoreEntitySet="Players">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="FirstName" ColumnName="FirstName" />
+          <ScalarProperty Name="LastName" ColumnName="LastName" />
+          <ScalarProperty Name="RoleId" ColumnName="RoleId" />
+          <ScalarProperty Name="TeamId" ColumnName="TeamId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="PlayersScores">
+      <EntityTypeMapping TypeName="ScoreCardModel.PlayersScore">
+        <MappingFragment StoreEntitySet="PlayersScore">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Score" ColumnName="Score" />
+          <ScalarProperty Name="PlayersId" ColumnName="PlayersId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Subscribers">
+      <EntityTypeMapping TypeName="ScoreCardModel.Subscriber">
+        <MappingFragment StoreEntitySet="Subscribers">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="email" ColumnName="email" />
+          <ScalarProperty Name="password" ColumnName="password" />
+          <ScalarProperty Name="FirstName" ColumnName="FirstName" />
+          <ScalarProperty Name="LastName" ColumnName="LastName" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Teams">
+      <EntityTypeMapping TypeName="ScoreCardModel.Team">
+        <MappingFragment StoreEntitySet="Teams">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="TeamName" ColumnName="TeamName" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="TeamsDatas">
+      <EntityTypeMapping TypeName="ScoreCardModel.TeamsData">
+        <MappingFragment StoreEntitySet="TeamsData">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="MatchPlayed" ColumnName="MatchPlayed" />
+          <ScalarProperty Name="Win" ColumnName="Win" />
+          <ScalarProperty Name="Loss" ColumnName="Loss" />
+          <ScalarProperty Name="TeamId" ColumnName="TeamId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping>
