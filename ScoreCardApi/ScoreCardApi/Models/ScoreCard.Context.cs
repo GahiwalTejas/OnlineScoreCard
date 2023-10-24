@@ -18,6 +18,9 @@ namespace ScoreCardApi.Models
         public ScoreCardEntities()
             : base("name=ScoreCardEntities")
         {
+
+            this.Configuration.LazyLoadingEnabled = false;
+
         }
     
         protected override void OnModelCreating(DbModelBuilder modelBuilder)

@@ -12,6 +12,7 @@ using ScoreCardApi.Models;
 
 namespace ScoreCardApi.Controllers
 {
+    [RoutePrefix("api/Subscribers")]
     public class SubscribersController : ApiController
     {
         private ScoreCardEntities db = new ScoreCardEntities();
@@ -70,20 +71,50 @@ namespace ScoreCardApi.Controllers
             return StatusCode(HttpStatusCode.NoContent);
         }
 
+
+        [HttpPost]
+        [Route("Registration")]
         // POST: api/Subscribers
         [ResponseType(typeof(Subscriber))]
-        public IHttpActionResult PostSubscriber(Subscriber subscriber)
+        public String Registration([FromBody] Subscriber subscriber)
         {
             if (!ModelState.IsValid)
             {
-                return BadRequest(ModelState);
+                return "Invalid Credential";
             }
 
             db.Subscribers.Add(subscriber);
-            db.SaveChanges();
-
-            return CreatedAtRoute("DefaultApi", new { id = subscriber.Id }, subscriber);
+            if (db.SaveChanges() != 0)
+                // return Ok(user);
+                return "Registration Successfully";
+            else
+                return "Invalid Credential";
         }
+
+
+
+        [Route("Login")]
+        [HttpPost]
+        public IHttpActionResult Login([FromBody] Subscriber subscriber)
+        {
+            var UserBy = (from subscribers in db.Subscribers
+                          where subscribers.email == subscriber.email && subscribers.password == subscriber.password
+                          select subscribers).FirstOrDefault();
+
+            if (UserBy != null)
+            {
+                return Ok(UserBy);
+            }
+            else
+            {
+                return NotFound();
+            }
+
+
+        }
+
+
+
 
         // DELETE: api/Subscribers/5
         [ResponseType(typeof(Subscriber))]
