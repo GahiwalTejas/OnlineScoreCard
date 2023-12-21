@@ -1,0 +1,8 @@
+D:\Project\OnlineScoreCard\helllo\helllo\obj\Debug\helllo.csproj.AssemblyReference.cache
+D:\Project\OnlineScoreCard\helllo\helllo\obj\Debug\helllo.csproj.SuggestedBindingRedirects.cache
+D:\Project\OnlineScoreCard\helllo\helllo\obj\Debug\helllo.csproj.CoreCompileInputs.cache
+D:\Project\OnlineScoreCard\helllo\helllo\bin\Debug\helllo.exe.config
+D:\Project\OnlineScoreCard\helllo\helllo\bin\Debug\helllo.exe
+D:\Project\OnlineScoreCard\helllo\helllo\bin\Debug\helllo.pdb
+D:\Project\OnlineScoreCard\helllo\helllo\obj\Debug\helllo.exe
+D:\Project\OnlineScoreCard\helllo\helllo\obj\Debug\helllo.pdb

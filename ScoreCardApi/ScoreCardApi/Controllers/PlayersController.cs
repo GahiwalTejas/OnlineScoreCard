@@ -6,6 +6,7 @@ using System.Data.Entity.Infrastructure;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
+using System.Numerics;
 using System.Web.Http;
 using System.Web.Http.Description;
 using ScoreCardApi.Models;
@@ -14,6 +15,8 @@ namespace ScoreCardApi.Controllers
 {
     public class PlayersController : ApiController
     {
+        
+
         private ScoreCardEntities db = new ScoreCardEntities();
 
         // GET: api/Players
@@ -72,17 +75,23 @@ namespace ScoreCardApi.Controllers
 
         // POST: api/Players
         [ResponseType(typeof(Player))]
-        public IHttpActionResult PostPlayer(Player player)
+        public IHttpActionResult PostPlayer(List<Player> players)
         {
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
 
-            db.Players.Add(player);
-            db.SaveChanges();
 
-            return CreatedAtRoute("DefaultApi", new { id = player.Id }, player);
+            foreach (var player in players)
+            {
+                db.Players.Add(player);
+
+            }
+
+
+            db.SaveChanges();
+            return Ok();
         }
 
         // DELETE: api/Players/5

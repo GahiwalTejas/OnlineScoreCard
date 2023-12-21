@@ -10,6 +10,7 @@ namespace ScoreCardApi
 {
     public static class WebApiConfig
     {
+
         public static void Register(HttpConfiguration config)
         {
             EnableCorsAttribute cors = new EnableCorsAttribute("*", "*", "*");
@@ -19,7 +20,6 @@ namespace ScoreCardApi
 
             // Web API routes
             config.MapHttpAttributeRoutes();
-
             config.Routes.MapHttpRoute(
                 name: "DefaultApi",
                 routeTemplate: "api/{controller}/{id}",

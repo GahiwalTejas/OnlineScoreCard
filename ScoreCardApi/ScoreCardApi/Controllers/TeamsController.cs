@@ -72,17 +72,21 @@ namespace ScoreCardApi.Controllers
 
         // POST: api/Teams
         [ResponseType(typeof(Team))]
-        public IHttpActionResult PostTeam(Team team)
+        public IHttpActionResult PostTeam(List<Team> teams)
         {
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
+            foreach (var team in teams)
+            {
+                db.Teams.Add(team);
 
-            db.Teams.Add(team);
+            }
+
             db.SaveChanges();
 
-            return CreatedAtRoute("DefaultApi", new { id = team.Id }, team);
+            return StatusCode(HttpStatusCode.Created);
         }
 
         // DELETE: api/Teams/5
