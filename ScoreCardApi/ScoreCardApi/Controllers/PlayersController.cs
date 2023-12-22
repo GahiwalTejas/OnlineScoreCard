@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Data;
 using System.Data.Entity;
+using System.Data.Entity.Core.Metadata.Edm;
 using System.Data.Entity.Infrastructure;
 using System.Linq;
 using System.Net;
@@ -23,6 +24,29 @@ namespace ScoreCardApi.Controllers
         public IQueryable<Player> GetPlayers()
         {
             return db.Players;
+        }
+        //Post : api/Players/GetTeamPlayer
+        [HttpPost]
+        [Route("GetTeamPlayer")]
+        public IQueryable<Object> GetTeamPlayer(List<Team> teams)
+        {
+            String team1=teams.ElementAt(0).ToString();
+            String team2 = teams.ElementAt(1).ToString();
+
+
+            var query = from player in db.Players
+                        join playerRole in db.PlayerRoles on player.RoleId equals playerRole.Id
+                        join team in db.Teams on player.TeamId equals team.Id
+                        where team.TeamName == team1 || team.TeamName == team2
+                        select new
+                        {
+                            player.FirstName,
+                            player.LastName,
+                            playerRole.RollType,
+                            team.TeamName
+                        };
+
+            return query;
         }
 
         // GET: api/Players/5
