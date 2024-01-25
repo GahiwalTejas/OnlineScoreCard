@@ -6,11 +6,17 @@ import {Outlet} from 'react-router-dom'
 export default function Layout() {
   return (
     <>
-    
+     <div className='min-h-screen flex flex-wrap content-between bg-gray-400'>
+      <div className='w-full block'>
     <Header/>
-<Outlet/>
+<br></br>
+    <Outlet/>
+
+<br></br>
 
     <Footer/>
+    </div>
+    </div>
     
     
     

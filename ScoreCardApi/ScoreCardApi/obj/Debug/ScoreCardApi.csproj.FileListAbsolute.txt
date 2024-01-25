@@ -110,3 +110,5 @@ D:\Project\OnlineScoreCard\ScoreCardApi\ScoreCardApi\bin\System.Runtime.Compiler
 D:\Project\OnlineScoreCard\ScoreCardApi\ScoreCardApi\bin\System.Text.Encodings.Web.xml
 D:\Project\OnlineScoreCard\ScoreCardApi\ScoreCardApi\bin\System.Threading.Tasks.Extensions.xml
 D:\Project\OnlineScoreCard\ScoreCardApi\ScoreCardApi\bin\System.Web.Http.Cors.xml
+D:\Project\OnlineScoreCard\ScoreCardApi\ScoreCardApi\bin\Nancy.dll
+D:\Project\OnlineScoreCard\ScoreCardApi\ScoreCardApi\bin\Nancy.xml

@@ -71,22 +71,31 @@ namespace ScoreCardApi.Controllers
         }
 
         // POST: api/Teams
-        [ResponseType(typeof(Team))]
-        public IHttpActionResult PostTeam(List<Team> teams)
-        {
+       // [ResponseType(typeof(Team))]
+        public HttpResponseMessage PostTeam([FromBody] List<Team> teams)
+        {HttpResponseMessage response = new HttpResponseMessage();
+            HttpRequestMessage request = new HttpRequestMessage();
             if (!ModelState.IsValid)
             {
-                return BadRequest(ModelState);
+                return new HttpResponseMessage(HttpStatusCode.NotModified);
             }
-            foreach (var team in teams)
+            foreach (var item in teams)
             {
-                db.Teams.Add(team);
+             
+               
+              
+                    db.Teams.Add(item);
 
             }
+
+
 
             db.SaveChanges();
-
-            return StatusCode(HttpStatusCode.Created);
+            return new HttpResponseMessage(HttpStatusCode.Created)
+            {
+                Content = new StringContent("Teams Added")
+            };
+            // return request.CreateResponse(HttpStatusCode.Created," Team Added");
         }
 
         // DELETE: api/Teams/5

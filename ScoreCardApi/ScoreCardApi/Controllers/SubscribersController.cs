@@ -12,7 +12,7 @@ using ScoreCardApi.Models;
 
 namespace ScoreCardApi.Controllers
 {
-    [RoutePrefix("api/Subscribers")]
+    [RoutePrefix("api/Subscriber")]
     public class SubscribersController : ApiController
     {
         private ScoreCardEntities db = new ScoreCardEntities();
