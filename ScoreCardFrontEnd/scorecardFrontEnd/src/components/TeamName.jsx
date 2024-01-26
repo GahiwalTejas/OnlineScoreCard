@@ -3,7 +3,7 @@ import { useForm } from 'react-hook-form';
 import { useNavigate } from 'react-router-dom';
 import Input from './Input';
 import Button from './Button';
-import {useDispatch} from 'react-redux'
+import {useDispatch,useSelector} from 'react-redux'
 import { setTeamNames } from '../store/teamSlice';
 function TeamName() {
     const { register, handleSubmit } = useForm();
@@ -11,8 +11,14 @@ function TeamName() {
     const navigate = useNavigate();
     const dispatch=useDispatch();
 
-
-
+    const userInfo = useSelector((state) => {
+      console.log(state);
+      console.log(state.auth);
+      console.log(state.auth.userData);
+      return state.auth.userData;
+    });
+    console.log(userInfo);
+    const id = userInfo.id;
 
     const onSubmit = async (data) => {
 //In backend method parameter are List<Team> teams  so i creating array of object
@@ -37,7 +43,7 @@ dispatch(
      
       setError("");
       debugger;
-      fetch("http://localhost:63779/api/Teams/PostTeam", {
+      fetch(`http://localhost:63779/api/Teams/PostTeam/${id}`, {
         method: "POST", // *GET, POST, PUT, DELETE, etc.
         headers: {
           "Content-Type": "application/json",

@@ -41,6 +41,7 @@
     </Key>
     <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="TeamName" Type="varchar" MaxLength="150" Nullable="false" />
+    <Property Name="SubscriberId" Type="int" />
   </EntityType>
   <EntityType Name="TeamsData">
     <Key>
@@ -94,6 +95,20 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
+  <Association Name="FK__Teams__Subscribe__5AEE82B9">
+    <End Role="Subscribers" Type="Self.Subscribers" Multiplicity="0..1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="Teams" Type="Self.Teams" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Subscribers">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Teams">
+        <PropertyRef Name="SubscriberId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
   <Association Name="FK__TeamsData__TeamI__3A81B327">
     <End Role="Teams" Type="Self.Teams" Multiplicity="0..1">
       <OnDelete Action="Cascade" />
@@ -126,6 +141,10 @@
     <AssociationSet Name="FK__PlayersSc__Playe__3C69FB99" Association="Self.FK__PlayersSc__Playe__3C69FB99">
       <End Role="Players" EntitySet="Players" />
       <End Role="PlayersScore" EntitySet="PlayersScore" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Teams__Subscribe__5AEE82B9" Association="Self.FK__Teams__Subscribe__5AEE82B9">
+      <End Role="Subscribers" EntitySet="Subscribers" />
+      <End Role="Teams" EntitySet="Teams" />
     </AssociationSet>
     <AssociationSet Name="FK__TeamsData__TeamI__3A81B327" Association="Self.FK__TeamsData__TeamI__3A81B327">
       <End Role="Teams" EntitySet="Teams" />

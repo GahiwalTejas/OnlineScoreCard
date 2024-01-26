@@ -23,10 +23,12 @@ namespace ScoreCardApi.Models
     
         public int Id { get; set; }
         public string TeamName { get; set; }
+        public Nullable<int> SubscriberId { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Player> Players { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<TeamsData> TeamsDatas { get; set; }
+        public virtual Subscriber Subscriber { get; set; }
     }
 }

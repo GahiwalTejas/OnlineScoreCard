@@ -12,6 +12,8 @@ using ScoreCardApi.Models;
 
 namespace ScoreCardApi.Controllers
 {
+    [RoutePrefix("api/Teams")]
+
     public class TeamsController : ApiController
     {
         private ScoreCardEntities db = new ScoreCardEntities();
@@ -71,18 +73,22 @@ namespace ScoreCardApi.Controllers
         }
 
         // POST: api/Teams
-       // [ResponseType(typeof(Team))]
-        public HttpResponseMessage PostTeam([FromBody] List<Team> teams)
+        //   [ResponseType(typeof(Team))]  
+        [Route("PostTeam/{id}")]
+        [HttpPost]
+        public HttpResponseMessage PostTeam(int id,[FromBody] List<Team> teams)
         {HttpResponseMessage response = new HttpResponseMessage();
             HttpRequestMessage request = new HttpRequestMessage();
             if (!ModelState.IsValid)
             {
                 return new HttpResponseMessage(HttpStatusCode.NotModified);
             }
+
+
             foreach (var item in teams)
             {
              
-               
+              item.Id = id;
               
                     db.Teams.Add(item);
 

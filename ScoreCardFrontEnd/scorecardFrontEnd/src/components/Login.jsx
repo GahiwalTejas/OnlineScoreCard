@@ -31,16 +31,16 @@ function Login() {
         return resp;
       })
       .then((resp) => {
-        //   console.log(resp);
-        //   console.log(resp.UserId)
+          console.log(resp);
+          console.log(resp.UserId)
         if (resp)
-          dispatch(
+          dispatch( 
             authLogin({
               userData: {
-                name: resp.Name,
-                email: resp.Email,
-                id: resp.UserId,
-                MoNumber: resp.MoNumber,
+                name: resp.FirstName,
+                email: resp.email,
+                id: resp.Id,
+              
               },
             })
           );

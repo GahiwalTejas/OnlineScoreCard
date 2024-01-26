@@ -43,6 +43,7 @@
     <EntitySetMapping Name="Teams">
       <EntityTypeMapping TypeName="ScoreCardModel.Team">
         <MappingFragment StoreEntitySet="Teams">
+          <ScalarProperty Name="SubscriberId" ColumnName="SubscriberId" />
           <ScalarProperty Name="Id" ColumnName="Id" />
           <ScalarProperty Name="TeamName" ColumnName="TeamName" />
         </MappingFragment>

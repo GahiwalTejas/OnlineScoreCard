@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="ScoreCardModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="ScoreCardModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="PlayerRoles">
           <Key>
             <PropertyRef Name="Id" />
@@ -46,6 +46,7 @@
           </Key>
           <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="TeamName" Type="varchar" MaxLength="150" Nullable="false" />
+          <Property Name="SubscriberId" Type="int" />
         </EntityType>
         <EntityType Name="TeamsData">
           <Key>
@@ -99,6 +100,20 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK__Teams__Subscribe__5AEE82B9">
+          <End Role="Subscribers" Type="Self.Subscribers" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Teams" Type="Self.Teams" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Subscribers">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Teams">
+              <PropertyRef Name="SubscriberId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK__TeamsData__TeamI__3A81B327">
           <End Role="Teams" Type="Self.Teams" Multiplicity="0..1">
             <OnDelete Action="Cascade" />
@@ -132,13 +147,16 @@
             <End Role="Players" EntitySet="Players" />
             <End Role="PlayersScore" EntitySet="PlayersScore" />
           </AssociationSet>
+          <AssociationSet Name="FK__Teams__Subscribe__5AEE82B9" Association="Self.FK__Teams__Subscribe__5AEE82B9">
+            <End Role="Subscribers" EntitySet="Subscribers" />
+            <End Role="Teams" EntitySet="Teams" />
+          </AssociationSet>
           <AssociationSet Name="FK__TeamsData__TeamI__3A81B327" Association="Self.FK__TeamsData__TeamI__3A81B327">
             <End Role="Teams" EntitySet="Teams" />
             <End Role="TeamsData" EntitySet="TeamsData" />
           </AssociationSet>
         </EntityContainer>
-      </Schema>
-    </edmx:StorageModels>
+      </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="ScoreCardModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
@@ -181,6 +199,7 @@
           <Property Name="password" Type="String" MaxLength="150" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="FirstName" Type="String" MaxLength="150" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="LastName" Type="String" MaxLength="150" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Teams" Relationship="ScoreCardModel.FK__Teams__Subscribe__5AEE82B9" FromRole="Subscriber" ToRole="Team" />
         </EntityType>
         <EntityType Name="Team">
           <Key>
@@ -190,6 +209,8 @@
           <Property Name="TeamName" Type="String" MaxLength="150" FixedLength="false" Unicode="false" Nullable="false" />
           <NavigationProperty Name="Players" Relationship="Self.FK__Players__TeamId__37A5467C" FromRole="Teams" ToRole="Players" />
           <NavigationProperty Name="TeamsDatas" Relationship="Self.FK__TeamsData__TeamI__3A81B327" FromRole="Teams" ToRole="TeamsData" />
+          <Property Name="SubscriberId" Type="Int32" />
+          <NavigationProperty Name="Subscriber" Relationship="ScoreCardModel.FK__Teams__Subscribe__5AEE82B9" FromRole="Team" ToRole="Subscriber" />
         </EntityType>
         <EntityType Name="TeamsData">
           <Key>
@@ -281,7 +302,25 @@
             <End Role="Teams" EntitySet="Teams" />
             <End Role="TeamsData" EntitySet="TeamsDatas" />
           </AssociationSet>
+          <AssociationSet Name="FK__Teams__Subscribe__5AEE82B9" Association="ScoreCardModel.FK__Teams__Subscribe__5AEE82B9">
+            <End Role="Subscriber" EntitySet="Subscribers" />
+            <End Role="Team" EntitySet="Teams" />
+          </AssociationSet>
         </EntityContainer>
+        <Association Name="FK__Teams__Subscribe__5AEE82B9">
+          <End Type="ScoreCardModel.Subscriber" Role="Subscriber" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Type="ScoreCardModel.Team" Role="Team" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Subscriber">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Team">
+              <PropertyRef Name="SubscriberId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -330,6 +369,7 @@
           <EntitySetMapping Name="Teams">
             <EntityTypeMapping TypeName="ScoreCardModel.Team">
               <MappingFragment StoreEntitySet="Teams">
+                <ScalarProperty Name="SubscriberId" ColumnName="SubscriberId" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
                 <ScalarProperty Name="TeamName" ColumnName="TeamName" />
               </MappingFragment>

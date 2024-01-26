@@ -39,6 +39,7 @@
     <Property Name="password" Type="String" MaxLength="150" FixedLength="false" Unicode="false" Nullable="false" />
     <Property Name="FirstName" Type="String" MaxLength="150" FixedLength="false" Unicode="false" Nullable="false" />
     <Property Name="LastName" Type="String" MaxLength="150" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="Teams" Relationship="ScoreCardModel.FK__Teams__Subscribe__5AEE82B9" FromRole="Subscriber" ToRole="Team" />
   </EntityType>
   <EntityType Name="Team">
     <Key>
@@ -48,6 +49,8 @@
     <Property Name="TeamName" Type="String" MaxLength="150" FixedLength="false" Unicode="false" Nullable="false" />
     <NavigationProperty Name="Players" Relationship="Self.FK__Players__TeamId__37A5467C" FromRole="Teams" ToRole="Players" />
     <NavigationProperty Name="TeamsDatas" Relationship="Self.FK__TeamsData__TeamI__3A81B327" FromRole="Teams" ToRole="TeamsData" />
+    <Property Name="SubscriberId" Type="Int32" />
+    <NavigationProperty Name="Subscriber" Relationship="ScoreCardModel.FK__Teams__Subscribe__5AEE82B9" FromRole="Team" ToRole="Subscriber" />
   </EntityType>
   <EntityType Name="TeamsData">
     <Key>
@@ -139,5 +142,23 @@
       <End Role="Teams" EntitySet="Teams" />
       <End Role="TeamsData" EntitySet="TeamsDatas" />
     </AssociationSet>
+    <AssociationSet Name="FK__Teams__Subscribe__5AEE82B9" Association="ScoreCardModel.FK__Teams__Subscribe__5AEE82B9">
+      <End Role="Subscriber" EntitySet="Subscribers" />
+      <End Role="Team" EntitySet="Teams" />
+    </AssociationSet>
   </EntityContainer>
+  <Association Name="FK__Teams__Subscribe__5AEE82B9">
+    <End Type="ScoreCardModel.Subscriber" Role="Subscriber" Multiplicity="0..1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Type="ScoreCardModel.Team" Role="Team" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Subscriber">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Team">
+        <PropertyRef Name="SubscriberId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
 </Schema>
