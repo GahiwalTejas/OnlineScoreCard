@@ -76,32 +76,50 @@ namespace ScoreCardApi.Controllers
         //   [ResponseType(typeof(Team))]  
         [Route("PostTeam/{id}")]
         [HttpPost]
-        public HttpResponseMessage PostTeam(int id,[FromBody] List<Team> teams)
-        {HttpResponseMessage response = new HttpResponseMessage();
-            HttpRequestMessage request = new HttpRequestMessage();
+        public IHttpActionResult PostTeam(int id,[FromBody] List<Team> teams)
+        {
             if (!ModelState.IsValid)
             {
-                return new HttpResponseMessage(HttpStatusCode.NotModified);
+            //    return new HttpResponseMessage(HttpStatusCode.NotModified);
+                return Content(HttpStatusCode.NotModified, new { status = "Data Invalid", data ="Invalid Data" });
             }
 
 
             foreach (var item in teams)
             {
-             
-              item.Id = id;
+             //item.id = id;    Its Wrong because i want to store SubscriberId .... 
+              item.SubscriberId = id;
               
                     db.Teams.Add(item);
 
             }
-
-
-
+            List <int> list=new List<int>();
+          //  String teamId = "";
             db.SaveChanges();
-            return new HttpResponseMessage(HttpStatusCode.Created)
+            foreach (var item in teams)
             {
-                Content = new StringContent("Teams Added")
-            };
-            // return request.CreateResponse(HttpStatusCode.Created," Team Added");
+                int a = db.Teams
+   .Where(team => team.TeamName == item.TeamName)
+   .Select(team => team.Id)
+   .FirstOrDefault();
+
+
+                list.Add(a);    
+
+            }
+
+            //Console.WriteLine(teamId);
+
+
+            // return new HttpResponseMessage(HttpStatusCode.Created)
+            //{
+            //  Content = new StringContent(teamId)
+            //};
+            // return request.CreateResponse(HttpStatusCode.Created,list);
+            return Content(HttpStatusCode.OK, new { status = "success", data = list });
+
+
+
         }
 
         // DELETE: api/Teams/5

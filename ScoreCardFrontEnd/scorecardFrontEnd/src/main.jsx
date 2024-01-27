@@ -10,8 +10,8 @@ import store from './store/Store.jsx'
 import { Provider } from 'react-redux'
 import TeamNamePage from './pages/TeamNamePage.jsx'
 import PlayerAdd from './pages/PlayerAdd.jsx'
-
-
+import Team1PlayersInfo from './pages/Team1PlayersInfo.jsx'
+import Team2PlayersInfo from './pages/Team2PlayersInfo.jsx'
 const route=createBrowserRouter([
    
     {
@@ -44,10 +44,12 @@ const route=createBrowserRouter([
 
             },
             {
-                path:"playerAdd",
-                element:<PlayerAdd/>
-
-
+                path:"Team1PlayersInfo",
+                element:<Team1PlayersInfo/>
+            },
+            {
+                path:"Team2PlayersInfo",
+                element:<Team2PlayersInfo/>
             },
            
 

@@ -6,7 +6,9 @@ import {Outlet} from 'react-router-dom'
 export default function Layout() {
   return (
     <>
-     <div className='min-h-screen flex flex-wrap content-between bg-gray-400'>
+     {/* <div className='min-h-screen flex flex-wrap content-between bg-gray-400'> */}
+     <div className='min-h-screen flex flex-wrap content-between bg-gray-300'>
+
       <div className='w-full block'>
     <Header/>
 <br></br>

@@ -26,14 +26,14 @@ const teams=[{TeamName:data.Team1},{TeamName:data.Team2}]
 
 
 
-dispatch(
-  setTeamNames({
-    teamNames:{
-      team1:data.Team1,
-     team2:data.Team2,
-    },
-  })
-);
+// dispatch(
+//   setTeamNames({
+//     teamNames:{
+//       team1:data.Team1,
+//      team2:data.Team2,
+//     },
+//   })
+// );
 
 
 
@@ -51,10 +51,31 @@ dispatch(
         },
         body: JSON.stringify(teams), // body data type must match "Content-Type" header
       })
-        .then((resp) => resp.text())
+        .then((resp) => resp.json())
         .then((resp) => {
 console.log(resp)
-            navigate('/playerAdd')
+
+           console.log(resp[0]);
+           console.log({resp});
+           console.log({...resp})
+
+           
+dispatch(
+  setTeamNames({
+    teamNames:{
+      team1:data.Team1,
+      team1Id:resp.data[0],
+     team2:data.Team2,
+     team2Id:resp.data[1],
+    },
+  })
+);   
+
+
+
+
+
+            navigate('/Team1PlayersInfo')
           console.log({ ...resp });
         })
         .catch((err) => {

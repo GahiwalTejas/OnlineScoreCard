@@ -14,9 +14,10 @@ using ScoreCardApi.Models;
 
 namespace ScoreCardApi.Controllers
 {
+    [RoutePrefix("api/Players")]
     public class PlayersController : ApiController
     {
-        
+
 
         private ScoreCardEntities db = new ScoreCardEntities();
 
@@ -30,7 +31,7 @@ namespace ScoreCardApi.Controllers
         [Route("GetTeamPlayer")]
         public IQueryable<Object> GetTeamPlayer(List<Team> teams)
         {
-            String team1=teams.ElementAt(0).ToString();
+            String team1 = teams.ElementAt(0).ToString();
             String team2 = teams.ElementAt(1).ToString();
 
 
@@ -98,8 +99,10 @@ namespace ScoreCardApi.Controllers
         }
 
         // POST: api/Players
+        [HttpPost]
+        [Route("PostPlayer/{id}")]  
         [ResponseType(typeof(Player))]
-        public IHttpActionResult PostPlayer(List<Player> players)
+        public IHttpActionResult PostPlayer(int id,[FromBody]List<Player> players)
         {
             if (!ModelState.IsValid)
             {
@@ -108,7 +111,10 @@ namespace ScoreCardApi.Controllers
 
 
             foreach (var player in players)
-            {
+            {  player.RoleId = player.RoleId;
+                Console.WriteLine(player.RoleId);
+                player.TeamId = id;
+                
                 db.Players.Add(player);
 
             }
