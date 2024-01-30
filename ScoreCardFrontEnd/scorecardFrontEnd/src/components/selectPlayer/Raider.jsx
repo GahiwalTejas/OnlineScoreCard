@@ -75,9 +75,15 @@ function Raider({ teamId, teamName, nav }) {
           <div className="font-bold py-10 w-2/4  ml-40">
             <p className=" text-white m-5">Select Raider from {teamName}</p>
             <Select2 options={option} index={index}></Select2>
-            <Button className="mt-40" onClick={() => navigate(nav) } children={ Next =>}>
+            <Button className="mt-40" onClick={() => navigate(nav) } children={ "Next"} >
            
           </Button>
+
+          <Button
+        children={"End Match"}
+        onClick={() => navigate("/FinalScore")}
+        className="ml-40 float-center font-bold  bg-red-600 "
+      ></Button>
           </div>
          
           <br></br> <br></br>
@@ -86,10 +92,7 @@ function Raider({ teamId, teamName, nav }) {
           <br></br>
           <br></br>
           <br></br>
-          <br></br>
-          <br></br>
-          <br></br>
-          <br></br>
+   
         </>
       ) : (
         <>

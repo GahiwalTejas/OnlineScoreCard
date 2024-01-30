@@ -13,7 +13,7 @@ import Team1PlayersInfo from './pages/Team1PlayersInfo.jsx'
 import Team2PlayersInfo from './pages/Team2PlayersInfo.jsx'
 import Raider1 from './pages/raiders/Raider1.jsx'
 import Raider2 from './pages/raiders/Raider2.jsx'
-
+import FinalScorePage from './pages/FinalScorePage.jsx'
 import PlayerScorePage1 from './pages/playerScore/PlayerScorePage1.jsx'
 import PlayerScorePage2 from './pages/playerScore/PlayerScorePage2.jsx'
 const route=createBrowserRouter([
@@ -71,7 +71,12 @@ const route=createBrowserRouter([
                 path:"PlayerScore2",
                 element:<PlayerScorePage2/>
             },
-           
+            {
+                path:"FinalScore",
+                element:<FinalScorePage/>
+
+
+            },
 
           
 
