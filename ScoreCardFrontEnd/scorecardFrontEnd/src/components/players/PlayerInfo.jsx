@@ -43,7 +43,7 @@ fetch(`http://localhost:63779/api/Players/PostPlayer/${teamId}`,{
 
 <form onSubmit={handleSubmit(onSubmit)}>
 
-<div className='flex w-8/12 ml-24 p-2 bg-red-600 rounded-xl'>
+<div className='flex w-8/12 ml-24 p-2 bg-transparent rounded-xl'>
     <label className='basis-1/4  text-white font-bold m-2 ml-10 text-center	 bg-blue-500 rounded-xl inline-block size-auto p-2 '>team  :</label>
 <input
           type="text"

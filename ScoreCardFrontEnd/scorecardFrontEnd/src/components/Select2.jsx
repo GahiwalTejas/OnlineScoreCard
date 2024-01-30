@@ -3,6 +3,7 @@ import React, {useId} from 'react'
 function Select2({
     options,
     label,
+    index,
     className,
     ...props
 }, ref) {

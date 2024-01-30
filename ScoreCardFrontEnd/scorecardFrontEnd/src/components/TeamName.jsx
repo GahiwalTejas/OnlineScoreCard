@@ -2,6 +2,7 @@ import React ,{useState}from 'react'
 import { useForm } from 'react-hook-form';
 import { useNavigate } from 'react-router-dom';
 import Input from './Input';
+import Input2 from './Input2';
 import Button from './Button';
 import {useDispatch,useSelector} from 'react-redux'
 import { setTeamNames } from '../store/teamSlice';
@@ -65,8 +66,11 @@ dispatch(
     teamNames:{
       team1:data.Team1,
       team1Id:resp.data[0],
+      team1Score:0,
      team2:data.Team2,
      team2Id:resp.data[1],
+     team2Score:0,
+
     },
   })
 );   
@@ -96,8 +100,8 @@ dispatch(
     }
   return (
     <form onSubmit={handleSubmit(onSubmit)} className="mt-8">
-    <div className="space-y-5">
-      <Input
+    <div className="space-y-5  w-2/4 ml-60 ">
+      <Input2
         label="Team 1 Name: "
         placeholder="Enter your Team 1 Name"
         type="text"
@@ -106,7 +110,8 @@ dispatch(
 
         })}
       />
-           <Input
+           <Input2
+           
         label="Team 2 Name: "
         placeholder="Enter your Team 2 Name"
         type="text"
@@ -116,7 +121,7 @@ dispatch(
         })}
       />
      
-      <Button type="submit" className="w-full">
+      <Button type="submit" className="w-40 ml-96 ">
        Add Teams
       </Button>
     </div>

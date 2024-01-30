@@ -21,7 +21,26 @@ namespace ScoreCardApi.Controllers
 
         private ScoreCardEntities db = new ScoreCardEntities();
 
+        [HttpPost]
+        [Route("TeamRaider/{teamId}")]
+        public IQueryable<Object> GetTeamPlayer(int teamId)
+        {
+            var query = from player in db.Players
+                        where player.TeamId == teamId
+                        select new { player.FirstName, player.LastName ,player.Id};
+
+            return query;
+
+        }   
+
+
+
+
         // GET: api/Players
+
+
+
+
         public IQueryable<Player> GetPlayers()
         {
             return db.Players;
