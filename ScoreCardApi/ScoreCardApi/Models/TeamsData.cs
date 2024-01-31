@@ -19,6 +19,7 @@ namespace ScoreCardApi.Models
         public int Win { get; set; }
         public int Loss { get; set; }
         public Nullable<int> TeamId { get; set; }
+        public Nullable<int> Tie { get; set; }
     
         public virtual Team Team { get; set; }
     }

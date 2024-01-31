@@ -52,6 +52,7 @@
     <EntitySetMapping Name="TeamsDatas">
       <EntityTypeMapping TypeName="ScoreCardModel.TeamsData">
         <MappingFragment StoreEntitySet="TeamsData">
+          <ScalarProperty Name="Tie" ColumnName="Tie" />
           <ScalarProperty Name="Id" ColumnName="Id" />
           <ScalarProperty Name="MatchPlayed" ColumnName="MatchPlayed" />
           <ScalarProperty Name="Win" ColumnName="Win" />

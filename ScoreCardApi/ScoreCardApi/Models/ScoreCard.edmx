@@ -57,6 +57,7 @@
           <Property Name="Win" Type="int" Nullable="false" />
           <Property Name="Loss" Type="int" Nullable="false" />
           <Property Name="TeamId" Type="int" />
+          <Property Name="Tie" Type="int" />
         </EntityType>
         <Association Name="FK__Players__RoleId__32E0915F">
           <End Role="PlayerRoles" Type="Self.PlayerRoles" Multiplicity="1">
@@ -222,6 +223,7 @@
           <Property Name="Loss" Type="Int32" Nullable="false" />
           <Property Name="TeamId" Type="Int32" />
           <NavigationProperty Name="Team" Relationship="Self.FK__TeamsData__TeamI__3A81B327" FromRole="TeamsData" ToRole="Teams" />
+          <Property Name="Tie" Type="Int32" />
         </EntityType>
         <Association Name="FK__Players__RoleId__32E0915F">
           <End Role="PlayerRoles" Type="Self.PlayerRole" Multiplicity="1">
@@ -378,6 +380,7 @@
           <EntitySetMapping Name="TeamsDatas">
             <EntityTypeMapping TypeName="ScoreCardModel.TeamsData">
               <MappingFragment StoreEntitySet="TeamsData">
+                <ScalarProperty Name="Tie" ColumnName="Tie" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
                 <ScalarProperty Name="MatchPlayed" ColumnName="MatchPlayed" />
                 <ScalarProperty Name="Win" ColumnName="Win" />

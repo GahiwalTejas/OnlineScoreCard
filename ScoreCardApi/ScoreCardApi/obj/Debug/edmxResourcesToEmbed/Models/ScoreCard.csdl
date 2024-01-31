@@ -62,6 +62,7 @@
     <Property Name="Loss" Type="Int32" Nullable="false" />
     <Property Name="TeamId" Type="Int32" />
     <NavigationProperty Name="Team" Relationship="Self.FK__TeamsData__TeamI__3A81B327" FromRole="TeamsData" ToRole="Teams" />
+    <Property Name="Tie" Type="Int32" />
   </EntityType>
   <Association Name="FK__Players__RoleId__32E0915F">
     <End Role="PlayerRoles" Type="Self.PlayerRole" Multiplicity="1">

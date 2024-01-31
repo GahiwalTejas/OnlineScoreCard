@@ -1,34 +1,113 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useSelector } from "react-redux";
 
 function FinalScore() {
   debugger;
   const teamsData = useSelector((state) => state.team.teamNames);
-  console.log(teamsData);
-  const team1 = {
-    name: teamsData.team1,
-    score: teamsData.team1score,
-    id: teamsData.team1Id,
-  };
-  const team2 = {
-    name: teamsData.team2,
-    score: teamsData.team2score,
-    id: teamsData.team2Id,
-  };
-  //   var result;
-  //   if (team1.score > team2.score) {
-  //     result = true;
-  //   } else {
-  //     result = false;
-  //   }
-  //   const tie = team1.score > team2.score;
 
-  // const result = team1.score > team2.score ? team1.name : team2.score > team1.score ? team2.name : "Tie";
+   console.log(teamsData);
+  // const team1 = {
+  //   name: teamsData.team1,
+  //   score: teamsData.team1score,
+  //   id: teamsData.team1Id,
+  // };
+  // const team2 = {
+  //   name: teamsData.team2,
+  //   score: teamsData.team2score,
+  //   id: teamsData.team2Id,
+    
+  // };
+  
+useEffect(()=>{
+  let team1Data = {};
+  let team2Data = {};
+console.log(teamsData.team1Score)
+console.log( teamsData.team2score);
+  if(teamsData.team1Score > teamsData.team1Score)
+  {
+    team1Data= {
+      teamId:teamsData.team1Id,
+      MatchPlayed:1,
+      Win:1,
+      Loss:0,
+      Tie:0
+    }
+
+     team2Data= {
+      teamId:teamsData.team2Id,
+      MatchPlayed:1,
+      Win:0,
+      Loss:1,
+      Tie:0
+    }
+  
+  }
+else if (teamsData.team1Score == teamsData.team1Score){
+
+   team2Data= {
+    teamId:teamsData.team2Id,
+    MatchPlayed:1,
+    Win:1,
+    Loss:0,
+    Tie:0
+  }
+   team1Data= {
+    teamId:teamsData.team1Id,
+    MatchPlayed:1,
+    Win:0,
+    Loss:1,
+    Tie:0
+  }
+}else{
+
+   team2Data= {
+    teamId:teamsData.team2Id,
+    MatchPlayed:1,
+    Win:0,
+    Loss:0,
+    Tie:1
+  }
+   team1Data= {
+    teamId:teamsData.team1Id,
+    MatchPlayed:1,
+    Win:0,
+    Loss:0,
+    Tie:1
+  }
+
+
+
+}
+
+
+
+
+
+
+
+
+
+
+
+const data=[team1Data,team2Data]
+fetch('http://localhost:63779/api/TeamsData/teamsData',{
+  method: "POST", 
+  headers: {
+    "Content-Type": "application/json",
+    // 'Content-Type': 'application/x-www-form-urlencoded',
+  },
+  body: JSON.stringify(data), // body data type must match "Content-Type" header
+})
+
+
+
+},[])
+
   const result =
     teamsData.team1Score > teamsData.team2Score
-      ? team1.name
+      ? teamsData.team1
       : teamsData.team2Score > teamsData.team1Score
-      ? team2.name
+      ? teamsData.team2
       : "Tie";
 
   return (
@@ -48,7 +127,7 @@ function FinalScore() {
           ) : (
             <h1 className="font-bold text-red-600 ">
               {" "}
-              .........{result} is won.
+          ....{result} is won.
             </h1>
            
           )}
@@ -82,19 +161,20 @@ function FinalScore() {
 <div>
    <div
   
-   style={{
-          backgroundImage: `url('https://img.freepik.com/free-vector/realistic-award-with-lights-golden-confetti-trophy-with-figurine-holding-star-illustration_1284-55118.jpg?w=1060&t=st=1706636944~exp=1706637544~hmac=6968b9d686140483dd24b9789874417429594f8a6518abb925a39f4efaea128e')`, 
-          width:"100%",
-          height:"200%"
+  //  style={{
+  //         backgroundImage: `url('https://img.freepik.com/free-vector/realistic-award-with-lights-golden-confetti-trophy-with-figurine-holding-star-illustration_1284-55118.jpg?w=1060&t=st=1706636944~exp=1706637544~hmac=6968b9d686140483dd24b9789874417429594f8a6518abb925a39f4efaea128e')`, 
+  //         width:"100%",
+  //         height:"200%"
 
-         }}>
-            <div className="flex justify-center items-center mt-20 h-20">
-        <h1 className="font-bold text-white text-5xl"
+  //        }}
+         >
+        <div className="flex justify-center items-center mt-20 h-20">
+        <h1 className="font-bold text-white text-5xl p-2"
          style={{
             backgroundImage: `url('https://img.freepik.com/free-vector/versus-vs-fight-battle-screen-banner_1017-33394.jpg?w=1380&t=st=1706636287~exp=1706636887~hmac=88cf13f6b525d9f25ca0e057fd1aa9e21117a49009a8c6b0d2762cd8948b9aa3')`, 
           
   
-           }}>Final Result :</h1>
+           }}>Final Result   </h1>
    
         {result === "Tie" ? (
           <h1 className="font-bold text-red-600 bg-transparent text-7xl"
@@ -109,9 +189,17 @@ function FinalScore() {
             Match Tie..................
           </h1>
         ) : (
-          <h1 className="font-bold text-red-600 "
-         >
-            {result} is won................
+          <h1 className="font-bold text-lime-600 border-2 bg-black ml-2 text-4xl flex"
+       
+       ><img 
+                    className="ml-2"
+           width={"70px"}
+           src="https://img.freepik.com/free-vector/winner-gold-trophy-with-red-pleated-badge-rosette-award-realistic-closeup-composition-blurry-light_1284-27888.jpg?w=1060&t=st=1706636628~exp=1706637228~hmac=f3d23fab7b98115b9a08bfe7985d2b640a31a62fc94caffeabbbe68a7c449cb6" alt="winner"></img>
+    
+            ...{result} is won.   <img 
+                    className="mr-2"
+           width={"70px"}
+           src="https://img.freepik.com/free-vector/winner-gold-trophy-with-red-pleated-badge-rosette-award-realistic-closeup-composition-blurry-light_1284-27888.jpg?w=1060&t=st=1706636628~exp=1706637228~hmac=f3d23fab7b98115b9a08bfe7985d2b640a31a62fc94caffeabbbe68a7c449cb6" alt="winner"></img>
           </h1>
         )}
         </div>

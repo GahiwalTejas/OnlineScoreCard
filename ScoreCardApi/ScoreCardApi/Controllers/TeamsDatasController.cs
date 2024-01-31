@@ -12,6 +12,7 @@ using ScoreCardApi.Models;
 
 namespace ScoreCardApi.Controllers
 {
+    [RoutePrefix("api/TeamsData")]
     public class TeamsDatasController : ApiController
     {
         private ScoreCardEntities db = new ScoreCardEntities();
@@ -69,20 +70,38 @@ namespace ScoreCardApi.Controllers
 
             return StatusCode(HttpStatusCode.NoContent);
         }
-
+        [HttpPost]
+        [Route("teamsData")]
         // POST: api/TeamsDatas
         [ResponseType(typeof(TeamsData))]
-        public IHttpActionResult PostTeamsData(TeamsData teamsData)
+        public IHttpActionResult PostTeamsData([FromBody] List<TeamsData> teamsData)
         {
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
 
-            db.TeamsDatas.Add(teamsData);
-            db.SaveChanges();
+            foreach(var item in teamsData)
+            {
+                // var result = db.TeamsDatas.Where(team => team.TeamId == item.TeamId).ToList();
+                var existingTeam = db.TeamsDatas.FirstOrDefault(team => team.TeamId == item.TeamId);
 
-            return CreatedAtRoute("DefaultApi", new { id = teamsData.Id }, teamsData);
+                if (existingTeam != null)
+                {
+                    existingTeam.MatchPlayed += item.MatchPlayed;
+                    existingTeam.Win += item.Win;
+                    existingTeam.Loss += item.Loss;
+                    existingTeam.Tie = (existingTeam.Tie ?? 0) + (item.Tie ?? 0);
+                }
+                else
+                {
+                    db.TeamsDatas.Add(item);
+                }
+            }
+        db.SaveChanges();
+
+            return Content(HttpStatusCode.Accepted, new { status = "success", data = "Teams Scores Updated" });
+
         }
 
         // DELETE: api/TeamsDatas/5

@@ -52,6 +52,7 @@
     <Property Name="Win" Type="int" Nullable="false" />
     <Property Name="Loss" Type="int" Nullable="false" />
     <Property Name="TeamId" Type="int" />
+    <Property Name="Tie" Type="int" />
   </EntityType>
   <Association Name="FK__Players__RoleId__32E0915F">
     <End Role="PlayerRoles" Type="Self.PlayerRoles" Multiplicity="1">
