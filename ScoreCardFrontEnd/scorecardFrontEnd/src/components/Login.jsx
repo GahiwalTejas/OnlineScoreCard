@@ -5,7 +5,7 @@ import { useForm } from "react-hook-form";
 import { Link, useNavigate } from "react-router-dom";
 import Logo from "./Logo/Logo";
 import { login as authLogin } from "../store/authSlice";
-
+import Toaster from "./toaster/Toaster";
 import { useDispatch } from "react-redux";
 
 function Login() {
@@ -13,6 +13,13 @@ function Login() {
   const [error, setError] = useState(" ");
   const navigate = useNavigate();
   const dispatch = useDispatch();
+
+  const [showToast, setShowToast] = useState(false); // State to control toaster visibility
+  const handleClose=()=>{
+    setShowToast(false)
+  }
+   
+
   const login = async (data) => {
     setError("");
     debugger;
@@ -25,15 +32,15 @@ function Login() {
       body: JSON.stringify(data), // body data type must match "Content-Type" header
     })
       .then((resp) => resp.json())
-      .then((resp) => {
-        console.log({ ...resp });
-        console.log(resp.UserId);
-        return resp;
-      })
+      // .then((resp) => {
+      //   console.log({ ...resp });
+      //   console.log(resp.UserId);
+      //   return resp;
+      // })
       .then((resp) => {
           console.log(resp);
           console.log(resp.UserId)
-        if (resp)
+        if (resp){
           dispatch( 
             authLogin({
               userData: {
@@ -44,15 +51,34 @@ function Login() {
               },
             })
           );
-        return resp;
+          console.log("dispatche done")
+          setShowToast(true); 
+
+          setTimeout(()=>{
+            setShowToast(false); 
+        //    navigate("/teamName");
+       },5000)       
+       } else {
+        throw new Error("Invalid credentials");
+      }
+        //return resp;
       })
-      .then((resp) => {
-        navigate("/teamName");
+      .then(() => {
+        setTimeout(()=>{
+          navigate("/teamName")},1000)
       })
       .catch((err) => {
+        // console.log(err);
+        // alert("User Need To Register....");
         console.log(err);
-        alert("User Need To Register....");
-        navigate("/signup");
+        setError("Invalid credentials");
+        setShowToast(true); 
+
+        setTimeout(()=>{
+          setShowToast(false); 
+          // navigate("/signup");
+
+         },3000)
       });
   };
 
@@ -107,6 +133,9 @@ function Login() {
             </Button>
           </div>
         </form>
+        {showToast && <Toaster text={error ? "Invalid credentials" : "Successfully logged in"}
+className={error ? 'bg-red-500 text-white' : 'bg-green-500 text-white'}
+onClick={handleClose}/>}
       </div>
     </div>
   );
